@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+</head>
+<body>
+    <canvas id="snakeGame" width="400" height='400'></canvas>
+    <script>
+        let gameCanvas = document.getElementById('snakeGame')
+        let ctx = gameCanvas.getContext('2d')
+        let snake = [
+        {x:150, y:150},
+        {x:140, y:150},
+        {x:130, y:150},
+        {x:120, y:150},
+        {x:110, y:150}
+      ]
+
+       let dx = 8
+       let dy = 0
+
+        ctx.fillStyle="#07090F"
+        ctx.strokeStyle="#07090F"
+        ctx.fillRect(0,0,gameCanvas.width, gameCanvas.height)
+        ctx.strokeRect(0,0,gameCanvas.width, gameCanvas.height)
+
+
+        const drawPartOfSnake = snakePart => {
+            ctx.fillStyle = 'white'
+            ctx.strokeStyle = 'white'
+            ctx.fillRect(snakePart.x, snakePart.y, 8, 8)
+            ctx.strokeRect(snakePart.x, snakePart.y, 8, 8)
+        }
+
+        const moveSnake = () => {
+            let head = {
+                x: snake[0].x + dx, 
+                y: snake[0].y + dy, 
+            }
+            snake.unshift(head);
+            snake.pop();
+        }
+
+        const changeDirection = event => {
+            const LEFT_KEY = 37
+            const keyPressed = event.keyCode
+            if (keyPressed === LEFT_KEY ) {
+                dx = -8
+            }
+        }
+
+        snake.forEach(drawPartOfSnake)
+        moveSnake()
+    </script>
+</body>
+</html>
